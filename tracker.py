@@ -6,7 +6,7 @@ import numpy as np
 
 detector = Yolo(r"Ml_model\yolov3-tiny-obj.cfg", r"Ml_model\yolov3-tiny-obj_final.weights", ["box"])
 cap = cv2.VideoCapture(r"video\Conveyor.mp4")
-#cap = cv2.VideoCapture(r"video\Conveyor.mp4")    #for live cam streaming
+#cap = cv2.VideoCapture(0)    #for live cam streaming
 height =540
 width = 960
 fpss = 10
