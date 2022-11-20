@@ -1,5 +1,4 @@
 from Detector import *
-#from YoloDetector import class_id
 import cv2
 import time
 import numpy as np
@@ -7,6 +6,7 @@ import numpy as np
 
 detector = Yolo(r"Ml_model\yolov3-tiny-obj.cfg", r"Ml_model\yolov3-tiny-obj_final.weights", ["box"])
 cap = cv2.VideoCapture(r"video\Conveyor.mp4")
+#cap = cv2.VideoCapture(r"video\Conveyor.mp4")    #for live cam streaming
 height =540
 width = 960
 fpss = 10
@@ -27,8 +27,6 @@ def draw_on_frame(frame, results):
     for cls, objs in results.items():
         for x1, y1, x2, y2 in objs:
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 3)
-            #cv2.rectangle(frame, (a, b), (c, d), (255, 255, 0), 3)
-
             cv2.putText(frame, cls, (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 0, 255), thickness=2)
             cv2.putText(frame, 'Current No of Detected boxes in Conveyor ' + ': ' + str(len(objs)), (1170, 150),  cv2.FONT_HERSHEY_SIMPLEX, 1,
                         (0, 0xFF, 0xFF), 3, cv2.FONT_HERSHEY_SIMPLEX)
@@ -36,6 +34,7 @@ def draw_on_frame(frame, results):
                         (255, 0, 0), 3, cv2.FONT_HERSHEY_SIMPLEX)
             cv2.putText(frame, 'Total No of Detected boxes in Conveyor ' + ': ' + str(num), (1170, 250),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0xFF, 0xFF), 3, cv2.FONT_HERSHEY_SIMPLEX)
+            
 
             # FINDING CENTROID OF BBOX LIES UNDER ROI
             x_center = int((x1 + x2) / 2)
@@ -64,6 +63,3 @@ while (cap.isOpened()):
 cap.release()
 videosave.release()
 cv2.destroyAllWindows()
-
-
-
